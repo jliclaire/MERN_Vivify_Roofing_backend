@@ -1,0 +1,19 @@
+{
+  "name": "mern_vivify_roofing_backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jliclaire/MERN_Vivify_Roofing_backend.git"
+  },
+  "author": "Andy Sims, Mark Butcher, Jing Li",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jliclaire/MERN_Vivify_Roofing_backend/issues"
+  },
+  "homepage": "https://github.com/jliclaire/MERN_Vivify_Roofing_backend#readme"
+}
