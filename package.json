@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/jliclaire/MERN_Vivify_Roofing_backend/issues"
   },
-  "homepage": "https://github.com/jliclaire/MERN_Vivify_Roofing_backend#readme"
+  "homepage": "https://github.com/jliclaire/MERN_Vivify_Roofing_backend#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
 }
