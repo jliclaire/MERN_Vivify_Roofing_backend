@@ -1,5 +1,5 @@
 const express = require("express");
-const app = express();
+const app = new express();
 const mongoose = require("mongoose");
 require("dotenv").config();
 
@@ -10,7 +10,7 @@ require("dotenv").config();
 // const cors = require("cors");
 
 //define Port
-const PORT = 5000;
+const port = process.env.PORT || 5000;
 
 //middleware
 // body-parser configuration
@@ -28,10 +28,13 @@ mongoose.connect(mongoPROD_URI, { useNewUrlParser: true }, err => {
   console.log("connected to mongodb");
 });
 
-app.get("/", (req, res) => {
-  res.send("testing for deployment");
+app.get("/test", (req, res) => {
+  res.send({
+    status: "success",
+    message: "testing for deployment"
+  });
 });
 
-app.listen(PORT, () => {
-  console.log(`listening to port ${PORT}`);
+app.listen(port, () => {
+  console.log(`listening to port ${port}`);
 });
