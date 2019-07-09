@@ -2,12 +2,12 @@ const express = require("express");
 const app = new express();
 const mongoose = require("mongoose");
 require("dotenv").config();
+const cors = require("cors");
 
 // command for future use
 // const axios = require("axios");
 // const jwt = require("jsonwebtoken");
 // const bcrypt = require("bcrypt");
-// const cors = require("cors");
 
 //define Port
 const port = process.env.PORT || 5000;
@@ -15,25 +15,16 @@ const port = process.env.PORT || 5000;
 //middleware
 // body-parser configuration
 app.use(express.json());
-// app.use(cors());
+app.use(cors());
 
 //require User schema
 const User = require("./models/User");
 
-//local db
-// const mongo_URI = process.env.DB_URL;
-// mongoose.connect(mongo_URI, { useNewUrlParser: true }, err => {
-//   if (err) return console.log(`${err}`);
-//   console.log("connected to mongodb");
-// });
+//require Job schema
+const Job = require("./models/Job");
 
-//require schema
-// const Job = require("./models/Job");
-
-// Cloud db
-const mongoPROD_URI = process.env.DB_URL;
-
-mongoose.connect(mongoPROD_URI, { useNewUrlParser: true }, err => {
+// db authentication
+mongoose.connect(process.env.DB_URL, { useNewUrlParser: true }, err => {
   if (err) return console.log(`${err}`);
   console.log("connected to mongodb");
 });
@@ -56,6 +47,19 @@ app.post("/user", async (req, res) => {
   const savedUser = await newUser.save();
   res.send({
     newUser: savedUser
+  });
+});
+
+app.post("/job", async (req, res) => {
+  const { assignedTrade, approvedBy } = req.body;
+  const newJob = new Job({
+    assignedTrade,
+    approvedBy
+  });
+
+  const savedJob = await newJob.save();
+  res.send({
+    newJob: savedJob
   });
 });
 
