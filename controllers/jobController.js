@@ -1,5 +1,7 @@
 //require Job schema
-const Job = require("./models/Job");
+const Job = require("../models/Job");
+const mongoose = require("mongoose");
+mongoose.set("useFindAndModify", false);
 
 const index = async (req, res) => {
   try {
@@ -9,45 +11,61 @@ const index = async (req, res) => {
     console.log(error.stack);
     res.send("There was an error on the GET /jobs endpoint at the controller");
   }
-}
+};
 
 const create = async (req, res) => {
   try {
     const data = req.body;
-    const newJob = await Job.create(data)
+    const newJob = await Job.create(data);
     res.status(201).send(newJob);
   } catch (error) {
     console.log(error.stack);
     res.send("There was an error on the POST /jobs endpoint at the controller");
   }
-}
+};
+
+// const edit = async (req, res) => {
+//   try {
+//     const { _id } = req.params;
+//     const data = req.body;
+//     console.log(data);
+//     const updatedJob = await Job.findOneAndUpdate({ _id }, data, { new: true });
+//     console.log(updatedJob);
+//     res.status(202).send(updatedJob);
+//   } catch (error) {
+//     console.log(error.stack);
+//     res.send("Error with the PUT / jobs id endpoint");
+//   }
+// };
 
 const edit = async (req, res) => {
   try {
-    const { id } = req.params
-    const data = req.body
-    const updatedJob = await Job.findOneAndUpdate({ id }, data, {new: true})
-    res.status(202).send(updatedJob)
+    const { id } = req.params;
+    const data = req.body;
+    console.log(data);
+    const updatedJob = await Job.findByIdAndUpdate(id, data, { new: true });
+    console.log(updatedJob);
+    res.status(202).send(updatedJob);
   } catch (error) {
     console.log(error.stack);
-    res.send("Error with the PUT / jobs id endpoint")
+    res.send("Error with the PUT / jobs id endpoint");
   }
-}
+};
 
 const destroy = async (req, res) => {
   try {
-    const { id } = req.params
-    const deletedJob = await Job.findOneAndDelete({ id })
-    res.status(202).send(`Deleted job ${deletedJob.id}`)
+    const { id } = req.params;
+    const deletedJob = await Job.findByIdAndDelete(id);
+    res.status(202).send(`Deleted job ${deletedJob.id}`);
   } catch (error) {
     console.log(error.stack);
-    res.send("Error with DELETE / job endpoint from the controller")
+    res.send("Error with DELETE / job endpoint from the controller");
   }
-}
+};
 
 module.exports = {
   index,
   create,
   edit,
   destroy
-}
+};
