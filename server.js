@@ -4,6 +4,8 @@ const mongoose = require("mongoose");
 require("dotenv").config();
 const cors = require("cors");
 
+const routes = require('./routes');
+
 // command for future use
 // const axios = require("axios");
 // const jwt = require("jsonwebtoken");
@@ -16,6 +18,9 @@ const port = process.env.PORT || 5000;
 // body-parser configuration
 app.use(express.json());
 app.use(cors());
+
+// Add router
+app.use(routes)
 
 //require User schema
 const User = require("./models/User");

@@ -1,5 +1,7 @@
 const mongoose = require("mongoose");
 
+const followupSchema = require("./Followup")
+
 const jobSchema = new mongoose.Schema({
   projectType: String,
   roofFrameType: String,
@@ -15,15 +17,7 @@ const jobSchema = new mongoose.Schema({
   phone: String,
   comments: String,
   //below are the fields that we inserted, need to confirm after Andy's meeting with client
-  followUps: [
-    {
-      date: String, //date to conduct survey of the job
-      saleId: Number,
-      salesName: String, // the person who is following up this time
-      type: String, //call, email, onsite visit
-      tradeComments: String
-    }
-  ],
+  followUps: [followupSchema],
   assignedTrade: String, //this is for the person who taking care of this job
   approvedBy: String, //this is for the person who confirm and approve the quote to process the job
   timeStamp: String, //when the job sent to the database after customer online inquire
