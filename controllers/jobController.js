@@ -24,20 +24,6 @@ const create = async (req, res) => {
   }
 };
 
-// const edit = async (req, res) => {
-//   try {
-//     const { _id } = req.params;
-//     const data = req.body;
-//     console.log(data);
-//     const updatedJob = await Job.findOneAndUpdate({ _id }, data, { new: true });
-//     console.log(updatedJob);
-//     res.status(202).send(updatedJob);
-//   } catch (error) {
-//     console.log(error.stack);
-//     res.send("Error with the PUT / jobs id endpoint");
-//   }
-// };
-
 const edit = async (req, res) => {
   try {
     const { id } = req.params;
