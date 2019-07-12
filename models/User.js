@@ -4,7 +4,7 @@ const userSchema = new mongoose.Schema({
   id: Number,
   name: String,
   password: String,
-  type: String, //the position of this person, a rep, management
+  role: String, //the position of this person, a rep, management
   phone: Number,
   email: String,
   admin: Boolean
