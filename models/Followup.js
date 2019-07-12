@@ -5,7 +5,8 @@ const followupSchema = new mongoose.Schema({
   saleId: Number,
   salesName: String, // the person who is following up this time
   type: String, //call, email, onsite visit
-  tradeComments: String
-})
+  tradeComments: String,
+  quoteAmount: Number
+});
 
 module.exports = followupSchema;

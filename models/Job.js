@@ -1,8 +1,9 @@
 const mongoose = require("mongoose");
 
-const followupSchema = require("./Followup")
+const followupSchema = require("./Followup");
 
 const jobSchema = new mongoose.Schema({
+  createdTime: { type: Date, default: Date.now },
   projectType: String,
   roofFrameType: String,
   sizeOfHome: String,
