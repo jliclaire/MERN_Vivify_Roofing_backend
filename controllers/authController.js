@@ -5,9 +5,9 @@ const login = async (req, res) => {
   const { email, password } = req.body;
   if (email && password) {
     try {
-      const query = await User.findOne(email)
+      const query = await User.findOne({email: email})
       if (query !== null) {
-        const result = await checkPassword(password, query.password);
+        const result = await checkPassword(password, query.passwordDigest);
         if (!result) {
           return res.status(403).send('bad credentials');
         } else {
@@ -26,10 +26,10 @@ const login = async (req, res) => {
 }
 
 const register = async (req, res) => {
-  const { email, password, role, phone, email, admin } = req.body;
+  const { name, email, password, role, phone, admin } = req.body;
   if (email && password) {
     try {
-      const query = await User.findOne(email)
+      const query = await User.findOne({email: email})
       if (query === null) {
         const user = await generateUser(
           email,

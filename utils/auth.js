@@ -8,11 +8,12 @@ const generateHash = async (password) => {
 }
 
 const checkPassword = async (password, hash) => {
+  console.log(password, hash)
   return await bcrypt.compare(password, hash);
 }
 
 const generateUser = async (
-  email,
+  name,
   password,
   role,
   phone,
@@ -21,8 +22,8 @@ const generateUser = async (
 ) => {
   const hash = await generateHash(password);
   const newUser = new User({
-    email,
-    password,
+    name,
+    passwordDigest: hash,
     role,
     phone,
     email,
