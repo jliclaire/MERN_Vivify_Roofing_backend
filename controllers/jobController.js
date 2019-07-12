@@ -55,11 +55,12 @@ const email = async (req, res) => {
   try {
     const emailString = req.body['body-plain'];
     const jobData = parseEmail(emailString);
-    const newJob = await Job.create(data);
+    const newJob = await Job.create(jobData);
     console.log(newJob);
-    res.status(202);
+    res.sendStatus(202);
   } catch (error) {
     console.log(error.stack);
+    res.status(500);
   }
 }
 

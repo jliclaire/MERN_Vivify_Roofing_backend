@@ -11,7 +11,7 @@ const parseEmail = (string) => {
   const suburb = (string.match(/Suburb:\s*(.+)\s+Email/i))[1]
   const email = (string.match(/Email:\s*(.+)\s+</i))[1]
   const phone = (string.match(/Phone:\s*(.+)\s+Comments/i))[1]
-  const comments = (string.match(/Comments:\s*(.+)\s+--/i))[1]
+  const comments = (string.match(/Comments:\s*(.+)/i))[1]
 
   return {
     projectType,
