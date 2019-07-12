@@ -3,6 +3,8 @@ const Job = require("../models/Job");
 const mongoose = require("mongoose");
 mongoose.set("useFindAndModify", false);
 
+const { parseEmail } = require('../utils/parse')
+
 const index = async (req, res) => {
   try {
     const jobs = await Job.find();
@@ -49,9 +51,23 @@ const destroy = async (req, res) => {
   }
 };
 
+const email = async (req, res) => {
+  try {
+    const emailString = req.body['body-plain'];
+    const jobData = parseEmail(emailString);
+    const newJob = await Job.create(jobData);
+    console.log(newJob);
+    res.sendStatus(202);
+  } catch (error) {
+    console.log(error.stack);
+    res.status(500);
+  }
+}
+
 module.exports = {
   index,
   create,
   edit,
-  destroy
+  destroy,
+  email
 };
