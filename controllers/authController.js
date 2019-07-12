@@ -51,7 +51,14 @@ const register = async (req, res) => {
 }
 
 const deleteUser = async (req, res) => {
-
+  try {
+    const { id } = req.params;
+    const deletedUser = await User.findByIdAndDelete(id);
+    res.status(202).send(`Deleted user ${deletedUser.id}`);
+  } catch (error) {
+    console.log(error.stack);
+    res.send("Error deleting user");
+  }
 }
 
 module.exports = {
