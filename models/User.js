@@ -5,7 +5,7 @@ const userSchema = new mongoose.Schema({
   name: String,
   password: String,
   role: String, //the position of this person, a rep, management
-  phone: Number,
+  phone: String,
   email: String,
   admin: Boolean
 });
