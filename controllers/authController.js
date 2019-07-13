@@ -32,7 +32,7 @@ const register = async (req, res) => {
       const query = await User.findOne({email: email})
       if (query === null) {
         const user = await generateUser(
-          email,
+          name,
           password,
           role,
           phone,
