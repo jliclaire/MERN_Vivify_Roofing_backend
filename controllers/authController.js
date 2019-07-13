@@ -32,7 +32,7 @@ const register = async (req, res) => {
       const query = await User.findOne({email: email})
       if (query === null) {
         const user = await generateUser(
-          email,
+          name,
           password,
           role,
           phone,
@@ -50,6 +50,17 @@ const register = async (req, res) => {
   }
 }
 
+const allUsers = async (req, res) => {
+  // For DEBUG only
+  try {
+    const users = await User.find();
+    res.status(200).send(users);
+  } catch (error) {
+    console.log(error.stack);
+    res.send("error getting users")
+  }
+}
+
 const deleteUser = async (req, res) => {
   try {
     const { id } = req.params;
@@ -64,5 +75,6 @@ const deleteUser = async (req, res) => {
 module.exports = {
   login,
   register,
+  allUsers,
   deleteUser
 }
