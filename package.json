@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "start": "nodemon server.js",
-    "test": "nodemon --exec 'mocha -R min'"
+    "test": "nodemon --exec 'mocha --coverage'"
   },
   "repository": {
     "type": "git",

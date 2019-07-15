@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 mongoose.Promise = global.Promise;
 
-mongoose.connect('mongodb://localhost/jobs');
+mongoose.connect('mongodb://localhost/jobs', { useNewUrlParser: true });
 mongoose.connection
   .once('open', () => console.log('Connected to test database...'))
   .on('error', (error) => {
