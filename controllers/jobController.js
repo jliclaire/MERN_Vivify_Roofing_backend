@@ -60,7 +60,7 @@ const email = async (req, res) => {
     res.sendStatus(202);
   } catch (error) {
     console.log(error.stack);
-    res.status(500);
+    res.sendStatus(500);
   }
 }
 

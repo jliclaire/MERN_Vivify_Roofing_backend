@@ -18,6 +18,7 @@ const jobSchema = new mongoose.Schema({
   comments: String,
   //below are the fields that we inserted, need to confirm after Andy's meeting with client
   followUps: [followupSchema],
+  imageUrls: [String],
   assignedTrade: String, //this is for the person who taking care of this job
   approvedBy: String, //this is for the person who confirm and approve the quote to process the job
   timeStamp: String, //when the job sent to the database after customer online inquire
