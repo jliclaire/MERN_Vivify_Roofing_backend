@@ -30,9 +30,7 @@ const edit = async (req, res) => {
   try {
     const { id } = req.params;
     const data = req.body;
-    console.log(data);
     const updatedJob = await Job.findByIdAndUpdate(id, data, { new: true });
-    console.log(updatedJob);
     res.status(202).send(updatedJob);
   } catch (error) {
     console.log(error.stack);
@@ -56,11 +54,10 @@ const email = async (req, res) => {
     const emailString = req.body['body-plain'];
     const jobData = parseEmail(emailString);
     const newJob = await Job.create(jobData);
-    console.log(newJob);
-    res.sendStatus(202);
+    res.status(202).send(newJob);
   } catch (error) {
     console.log(error.stack);
-    res.status(500);
+    res.sendStatus(500);
   }
 }
 
