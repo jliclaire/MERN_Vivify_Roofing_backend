@@ -5,15 +5,11 @@ const {
   destroy,
   email,
 } = require('../controllers/jobController')
+require('dotenv').config()
 const chai = require('chai')
-const Job = require('../models/Job')
 
-let job, req, reqEdit, res
-beforeEach((done) => {
-  job = new Job({ id: 1, name: 'name of lead' });
-  job.save()
-    .then(() => done());
-
+let req, reqEdit, res
+beforeEach(() => {
   res = {
     statusCalledWith: '',
     sendCalledWith: '',

@@ -12,7 +12,7 @@ const login = async (req, res) => {
           return res.status(403).send('bad credentials');
         } else {
           const token = await generateAccessToken(query);
-          return res.send({ token });
+          return res.status(200).send({ token });
         }
       } else {
         return res.status(403).send('bad credentials');
@@ -40,7 +40,7 @@ const register = async (req, res) => {
           admin
         );
         const token = await generateAccessToken(user);
-        return res.send({ token })
+        return res.status(201).send({ token })
       }
     } catch (error) {
       return res.status(404).send('an error occurred')
@@ -68,7 +68,7 @@ const deleteUser = async (req, res) => {
     res.status(202).send(`Deleted user ${deletedUser.id}`);
   } catch (error) {
     console.log(error.stack);
-    res.send("Error deleting user");
+    res.status(400).send("Error deleting user");
   }
 }
 
