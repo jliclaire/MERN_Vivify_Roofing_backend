@@ -3,6 +3,8 @@ const Job = require("../models/Job");
 const mongoose = require("mongoose");
 mongoose.set("useFindAndModify", false);
 
+const { parseEmail } = require("../utils/parse");
+
 const index = async (req, res) => {
   try {
     const jobs = await Job.find();
@@ -24,26 +26,13 @@ const create = async (req, res) => {
   }
 };
 
-// const edit = async (req, res) => {
-//   try {
-//     const { _id } = req.params;
-//     const data = req.body;
-//     console.log(data);
-//     const updatedJob = await Job.findOneAndUpdate({ _id }, data, { new: true });
-//     console.log(updatedJob);
-//     res.status(202).send(updatedJob);
-//   } catch (error) {
-//     console.log(error.stack);
-//     res.send("Error with the PUT / jobs id endpoint");
-//   }
-// };
-
 const edit = async (req, res) => {
   try {
     const { id } = req.params;
     const data = req.body;
-    console.log(data);
-    const updatedJob = await Job.findByIdAndUpdate(id, data, { new: true });
+    const updatedJob = await Job.findOneAndUpdate(id, data, {
+      new: true
+    });
     console.log(updatedJob);
     res.status(202).send(updatedJob);
   } catch (error) {
@@ -63,9 +52,23 @@ const destroy = async (req, res) => {
   }
 };
 
+const email = async (req, res) => {
+  try {
+    const emailString = req.body["body-plain"];
+    const jobData = parseEmail(emailString);
+    const newJob = await Job.create(jobData);
+    console.log(newJob);
+    res.sendStatus(202);
+  } catch (error) {
+    console.log(error.stack);
+    res.status(500);
+  }
+};
+
 module.exports = {
   index,
   create,
   edit,
-  destroy
+  destroy,
+  email
 };

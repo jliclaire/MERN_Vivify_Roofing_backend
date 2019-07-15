@@ -21,11 +21,11 @@ const jobSchema = new mongoose.Schema({
   followUps: [followupSchema],
   assignedTrade: String, //this is for the person who taking care of this job
   approvedBy: String, //this is for the person who confirm and approve the quote to process the job
-  timeStamp: String, //when the job sent to the database after customer online inquire
-  followUpFlag: Boolean, //to flag this job to a follow-up-later folder
-  completed: Boolean, //when the customer agree to enter into a roofing work contract
+  // timeStamp: String, //when the job sent to the database after customer online inquire
+  // followUpFlag: Boolean, //to flag this job to a follow-up-later folder
+  sold: Boolean, //when the customer agree to enter into a roofing work contract
   inProgress: Boolean, //to flag this job to a work-in-progress folder
-  cancelled: Boolean ////to flag this job to a work-cancelled folder
+  archived: Boolean ////to flag this job to a work-cancelled folder
 });
 
 module.exports = mongoose.model("Job", jobSchema);
