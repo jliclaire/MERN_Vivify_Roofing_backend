@@ -3,6 +3,8 @@ const Job = require("../models/Job");
 const mongoose = require("mongoose");
 mongoose.set("useFindAndModify", false);
 
+const { uploadFile } = require('../utils/cloudinary')
+
 const { parseEmail } = require("../utils/parse");
 
 const index = async (req, res) => {
@@ -61,10 +63,29 @@ const email = async (req, res) => {
   }
 };
 
+const uploadImage = async (req, res) => {
+  try {
+    const { buffer } = req.file  
+    const { id } = req.params
+    const response = await uploadFile(buffer)
+    const url = response.secure_url
+    console.log(url)
+    const updatedJob = await Job.findByIdAndUpdate(id, {
+      $push: {imageUrls: url}
+    }, { new: true });
+    res.status(202).send(updatedJob)
+  } catch (error) {
+    console.log(error)
+    res.status(400).send('na')
+  }
+}
+
+
 module.exports = {
   index,
   create,
   edit,
   destroy,
-  email
+  email,
+  uploadImage
 };
