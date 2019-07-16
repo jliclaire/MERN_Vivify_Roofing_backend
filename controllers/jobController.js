@@ -30,7 +30,7 @@ const edit = async (req, res) => {
   try {
     const { id } = req.params;
     const data = req.body;
-    const updatedJob = await Job.findOneAndUpdate(id, data, {
+    const updatedJob = await Job.findByIdAndUpdate(id, data, {
       new: true
     });
     console.log(updatedJob);
