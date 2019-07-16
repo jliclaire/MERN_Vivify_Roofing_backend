@@ -1,35 +1,40 @@
 const User = require("../models/User");
-const { checkPassword, generateUser, generateAccessToken } = require('../utils/auth')
+const {
+  checkPassword,
+  generateUser,
+  generateAccessToken
+} = require("../utils/auth");
 
 const login = async (req, res) => {
   const { email, password } = req.body;
   if (email && password) {
     try {
-      const query = await User.findOne({email: email})
+      const query = await User.findOne({ email: email });
       if (query !== null) {
         const result = await checkPassword(password, query.passwordDigest);
         if (!result) {
-          return res.status(403).send('bad credentials');
+          return res.status(403).send("bad credentials");
         } else {
           const token = await generateAccessToken(query);
           return res.status(200).send({ token });
         }
       } else {
-        return res.status(403).send('bad credentials');
+        return res.status(403).send("bad credentials");
       }
     } catch (error) {
-      return res.status(404).send('an error occured');
+      return res.status(404).send("an error occured");
     }
   } else {
-    return res.status(403).send('bad credentials');
+    return res.status(403).send("bad credentials");
   }
-}
+};
 
 const register = async (req, res) => {
-  const { name, email, password, role, phone, admin } = req.body;
+  const { email, password } = req.body;
+  // const { name, email, password, role, phone, admin } = req.body;
   if (email && password) {
     try {
-      const query = await User.findOne({email: email})
+      const query = await User.findOne({ email: email });
       if (query === null) {
         const user = await generateUser(
           name,
@@ -43,12 +48,12 @@ const register = async (req, res) => {
         return res.status(201).send({ token })
       }
     } catch (error) {
-      return res.status(404).send('an error occurred')
+      return res.status(404).send("an error occurred");
     }
   } else {
-    return res.status(403).send('bad credentials')
+    return res.status(403).send("bad credentials");
   }
-}
+};
 
 const allUsers = async (req, res) => {
   // For DEBUG only
@@ -70,11 +75,11 @@ const deleteUser = async (req, res) => {
     console.log(error.stack);
     res.status(400).send("Error deleting user");
   }
-}
+};
 
 module.exports = {
   login,
   register,
   allUsers,
   deleteUser
-}
+};

@@ -1,11 +1,10 @@
 const mongoose = require("mongoose");
 
 const followupSchema = new mongoose.Schema({
-  date: String, //date to conduct survey of the job
-  saleId: Number,
+  followupDate: String, //date to conduct survey of the job
   salesName: String, // the person who is following up this time
-  type: String, //call, email, onsite visit
-  tradeComments: String
-})
+  tradeComments: String,
+  quoteAmount: Number
+});
 
 module.exports = followupSchema;
