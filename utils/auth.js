@@ -8,7 +8,6 @@ const generateHash = async (password) => {
 }
 
 const checkPassword = async (password, hash) => {
-  console.log(password, hash)
   return await bcrypt.compare(password, hash);
 }
 
@@ -37,6 +36,7 @@ const generateAccessToken = async ({ name }) => {
 }
 
 module.exports = {
+  generateHash,
   checkPassword,
   generateUser,
   generateAccessToken

@@ -19,6 +19,7 @@ const jobSchema = new mongoose.Schema({
   comments: String,
   //below are the fields that we inserted, need to confirm after Andy's meeting with client
   followUps: [followupSchema],
+  imageUrls: [String],
   assignedTrade: String, //this is for the person who taking care of this job
   sold: Boolean, //when the customer agree to enter into a roofing work contract
   inProgress: Boolean, //to flag this job to a work-in-progress folder

@@ -16,7 +16,7 @@ const login = async (req, res) => {
           return res.status(403).send("bad credentials");
         } else {
           const token = await generateAccessToken(query);
-          return res.send({ token });
+          return res.status(200).send({ token });
         }
       } else {
         return res.status(403).send("bad credentials");
@@ -37,15 +37,15 @@ const register = async (req, res) => {
       const query = await User.findOne({ email: email });
       if (query === null) {
         const user = await generateUser(
+          name,
+          password,
+          role,
+          phone,
           email,
-          password
-          // role,
-          // phone,
-          // name,
-          // admin
+          admin
         );
         const token = await generateAccessToken(user);
-        return res.send({ token });
+        return res.status(201).send({ token })
       }
     } catch (error) {
       return res.status(404).send("an error occurred");
@@ -55,6 +55,17 @@ const register = async (req, res) => {
   }
 };
 
+const allUsers = async (req, res) => {
+  // For DEBUG only
+  try {
+    const users = await User.find();
+    res.status(200).send(users);
+  } catch (error) {
+    console.log(error.stack);
+    res.send("error getting users")
+  }
+}
+
 const deleteUser = async (req, res) => {
   try {
     const { id } = req.params;
@@ -62,12 +73,13 @@ const deleteUser = async (req, res) => {
     res.status(202).send(`Deleted user ${deletedUser.id}`);
   } catch (error) {
     console.log(error.stack);
-    res.send("Error deleting user");
+    res.status(400).send("Error deleting user");
   }
 };
 
 module.exports = {
   login,
   register,
+  allUsers,
   deleteUser
 };
