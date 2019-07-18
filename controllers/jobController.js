@@ -4,7 +4,6 @@ const mongoose = require("mongoose");
 mongoose.set("useFindAndModify", false);
 
 const { uploadFile } = require('../utils/cloudinary')
-
 const { parseEmail } = require("../utils/parse");
 
 const index = async (req, res) => {
@@ -16,6 +15,17 @@ const index = async (req, res) => {
     res.send("There was an error on the GET /jobs endpoint at the controller");
   }
 };
+
+const show = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const job = await Job.findById(id);
+    res.status(200).send(job);
+  } catch (error) {
+    console.log(error.stack);
+    res.sendStatus(500);
+  }
+}
 
 const create = async (req, res) => {
   try {
