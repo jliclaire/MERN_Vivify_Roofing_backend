@@ -63,6 +63,7 @@ const destroy = async (req, res) => {
 const email = async (req, res) => {
   try {
     const emailString = req.body["body-plain"];
+    console.log(req)
     const jobData = parseEmail(emailString);
     const newJob = await Job.create(jobData);
     res.status(202).send(newJob);
@@ -105,6 +106,7 @@ const editFollowup = async (req, res) => {
 
 module.exports = {
   index,
+  show,
   create,
   edit,
   destroy,
