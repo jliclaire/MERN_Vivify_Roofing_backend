@@ -12,7 +12,7 @@ const index = async (req, res) => {
     res.status(200).send(jobs);
   } catch (error) {
     console.log(error.stack);
-    res.send("There was an error on the GET /jobs endpoint at the controller");
+    res.status(500).send(error.message);
   }
 };
 
@@ -23,7 +23,7 @@ const show = async (req, res) => {
     res.status(200).send(job);
   } catch (error) {
     console.log(error.stack);
-    res.sendStatus(500);
+    res.status(500).send(error.message);
   }
 }
 
@@ -34,7 +34,7 @@ const create = async (req, res) => {
     res.status(201).send(newJob);
   } catch (error) {
     console.log(error.stack);
-    res.send("There was an error on the POST /jobs endpoint at the controller");
+    res.status(500).send(error.message);
   }
 };
 
@@ -46,7 +46,7 @@ const edit = async (req, res) => {
     res.status(202).send(updatedJob);
   } catch (error) {
     console.log(error.stack);
-    res.send("Error with the PUT / jobs id endpoint");
+    res.status(500).send(error.message);
   }
 };
 
@@ -57,7 +57,7 @@ const destroy = async (req, res) => {
     res.status(202).send(`Deleted job ${deletedJob.id}`);
   } catch (error) {
     console.log(error.stack);
-    res.send("Error with DELETE / job endpoint from the controller");
+    res.status(500).send(error.message);
   }
 };
 
@@ -69,24 +69,24 @@ const email = async (req, res) => {
     res.status(202).send(newJob);
   } catch (error) {
     console.log(error.stack);
-    res.sendStatus(500);
+    res.status(500).send(error.message);
   }
 };
 
 const uploadImage = async (req, res) => {
   try {
-    const { buffer } = req.file  
+    const { buffer } = req.file
     const { id } = req.params
     const response = await uploadFile(buffer)
     const url = response.secure_url
     console.log(url)
     const updatedJob = await Job.findByIdAndUpdate(id, {
-      $push: {imageUrls: url}
+      $push: { imageUrls: url }
     }, { new: true });
     res.status(202).send(updatedJob)
   } catch (error) {
-    console.log(error)
-    res.status(400).send(error)
+    console.log(error.stack);
+    res.status(500).send(error.message);
   }
 }
 
@@ -102,8 +102,8 @@ const editFollowup = async (req, res) => {
     console.log(job);
     res.sendStatus(202)
   } catch (error) {
-    console.log(error);
-    res.status(400).send(error)
+    console.log(error.stack);
+    res.status(500).send(error.message);
   }
 }
 
