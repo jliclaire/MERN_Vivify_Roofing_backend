@@ -85,9 +85,11 @@ const editFollowup = async (req, res) => {
     const { jId, fId } = req.params
     const { newComment } = req.body
     const job = await Job.findById(jId)
-    const followup = job.followups.id(fId);
+    const followup = await job.followUps.id(fId);
     followup.tradeComments = newComment;
+    console.log(newComment)
     job.save();
+    console.log(job);
     res.sendStatus(202)
   } catch (error) {
     console.log(error);

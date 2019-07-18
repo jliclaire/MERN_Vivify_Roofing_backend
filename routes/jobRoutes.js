@@ -21,6 +21,6 @@ router.put('/:id', edit);
 router.delete('/:id', destroy);
 router.post('/email', email); // accepts POST requests from mailgun which contain new leads
 router.post('/:id/image', upload.single('file'), uploadImage);
-router.post('/:jId/followup/:fId', editFollowup)
+router.put('/:jId/followups/:fId', editFollowup)
 
 module.exports = router;

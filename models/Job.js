@@ -18,7 +18,7 @@ const jobSchema = new mongoose.Schema({
   phone: String,
   comments: String,
   //below are the fields that we inserted, need to confirm after Andy's meeting with client
-  followups: [followupSchema],
+  followUps: [followupSchema],
   imageUrls: [String],
   assignedTrade: String, //this is for the person who taking care of this job
   sold: Boolean, //when the customer agree to enter into a roofing work contract
