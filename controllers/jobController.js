@@ -77,9 +77,7 @@ const uploadImage = async (req, res) => {
   try {
     const { buffer } = req.file
     const { id } = req.params
-    const response = await uploadFile(buffer)
-    const url = response.secure_url
-    console.log(url)
+    const { url } = await uploadFile(buffer)
     const updatedJob = await Job.findByIdAndUpdate(id, {
       $push: { imageUrls: url }
     }, { new: true });
