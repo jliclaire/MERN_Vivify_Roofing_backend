@@ -54,7 +54,7 @@ const destroy = async (req, res) => {
   try {
     const { id } = req.params;
     const deletedJob = await Job.findByIdAndDelete(id);
-    res.status(202).send(`Deleted job ${deletedJob.id}`);
+    res.status(202).send({deleted: deletedJob});
   } catch (error) {
     console.log(error.stack);
     res.status(500).send(error.message);
