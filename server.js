@@ -20,9 +20,9 @@ app.use(routes);
 // db authentication
 mongoose.connect(process.env.DB_URL, { useNewUrlParser: true }, err => {
   if (err) return console.log(`${err}`);
-  console.log("connected to mongodb");
+  console.log("<-- Connected to the Vivify leads database -->");
 });
 
 app.listen(port, () => {
-  console.log(`listening to port ${port}`);
+  console.log(`Vivify API listening on port ${port}...`);
 });
