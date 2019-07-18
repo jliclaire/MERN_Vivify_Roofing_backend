@@ -1,9 +1,8 @@
-//require Job schema
 const Job = require("../models/Job");
 const mongoose = require("mongoose");
 mongoose.set("useFindAndModify", false);
 
-const { uploadFile } = require('../utils/cloudinary')
+const { uploadFile } = require('../utils/cloudinary');
 const { parseEmail } = require("../utils/parse");
 
 const index = async (req, res) => {
@@ -75,13 +74,13 @@ const email = async (req, res) => {
 
 const uploadImage = async (req, res) => {
   try {
-    const { buffer } = req.file
-    const { id } = req.params
-    const { url } = await uploadFile(buffer)
+    const { buffer } = req.file;
+    const { id } = req.params;
+    const { url } = await uploadFile(buffer);
     const updatedJob = await Job.findByIdAndUpdate(id, {
       $push: { imageUrls: url }
     }, { new: true });
-    res.status(202).send(updatedJob)
+    res.status(202).send(updatedJob);
   } catch (error) {
     console.log(error.stack);
     res.status(500).send(error.message);
@@ -90,15 +89,13 @@ const uploadImage = async (req, res) => {
 
 const editFollowup = async (req, res) => {
   try {
-    const { jId, fId } = req.params
-    const { newComment } = req.body
-    const job = await Job.findById(jId)
+    const { jId, fId } = req.params;
+    const { newComment } = req.body;
+    const job = await Job.findById(jId);
     const followup = await job.followUps.id(fId);
     followup.tradeComments = newComment;
-    console.log(newComment)
     job.save();
-    console.log(job);
-    res.sendStatus(202)
+    res.status(202).send(job);
   } catch (error) {
     console.log(error.stack);
     res.status(500).send(error.message);
