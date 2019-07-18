@@ -7,7 +7,8 @@ const upload = multer({ storage });
 
 
 const { 
-  index, 
+  index,
+  show,
   create, 
   edit, 
   destroy, 
@@ -16,6 +17,7 @@ const {
   editFollowup } = require('../controllers/jobController')
 
 router.get('/', index);
+router.get('/:id', show);
 router.post('/', create);
 router.put('/:id', edit);
 router.delete('/:id', destroy);
