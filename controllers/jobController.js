@@ -76,7 +76,22 @@ const uploadImage = async (req, res) => {
     res.status(202).send(updatedJob)
   } catch (error) {
     console.log(error)
-    res.status(400).send('na')
+    res.status(400).send(error)
+  }
+}
+
+const editFollowup = async (req, res) => {
+  try {
+    const { jId, fId } = req.params
+    const { newComment } = req.body
+    const job = await Job.findById(jId)
+    const followup = job.followups.id(fId);
+    followup.tradeComments = newComment;
+    job.save();
+    res.sendStatus(202)
+  } catch (error) {
+    console.log(error);
+    res.status(400).send(error)
   }
 }
 
@@ -87,5 +102,6 @@ module.exports = {
   edit,
   destroy,
   email,
-  uploadImage
+  uploadImage,
+  editFollowup
 };
