@@ -1,9 +1,8 @@
 const Job = require("../models/Job");
 const mongoose = require("mongoose");
-mongoose.set("useFindAndModify", false);
 
 const { uploadFile } = require('../utils/cloudinary');
-const { parseEmail } = require("../utils/parse");
+const { parseEmail, parsePaintQuote } = require("../utils/parse");
 
 const index = async (req, res) => {
   try {
@@ -63,11 +62,17 @@ const destroy = async (req, res) => {
 const email = async (req, res) => {
   try {
     const emailString = req.body["body-plain"];
-    const jobData = parseEmail(emailString);
+    const emailSubject = req.body["Subject"];
+    let jobData
+    if (emailSubject === "Roof Painting Quote") {
+      jobData = parseEmail(emailString);
+    } else {
+      jobData = parsePaintQuote(emailString)
+    }
     const newJob = await Job.create(jobData);
     console.log('Received new sales lead:')
     console.log(newJob)
-    res.status(202).send(newJob);
+    res.sendStatus(200); // Mailgun notified of success and will not retry
   } catch (error) {
     console.log(error.stack);
     res.status(500).send(error.message);
