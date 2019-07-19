@@ -83,7 +83,7 @@ const uploadImage = async (req, res) => {
     }, { new: true });
     res.status(202).send(updatedJob);
   } catch (error) {
-    console.log(error.stack);
+    console.log(error);
     res.status(500).send(error.message);
   }
 }
