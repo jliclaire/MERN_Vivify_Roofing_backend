@@ -1,9 +1,9 @@
 const cloudinary = require('cloudinary')
 
 cloudinary.config({
-  cloud_name: "dn8lparwq",
-  api_key: "441492522748252",
-  api_secret: "GV_jaI8tkzb3dpgiSa_JLd8wa9A"
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET
 })
 
 // middleware file buffer to upload photo files
