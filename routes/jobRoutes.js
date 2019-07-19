@@ -14,14 +14,18 @@ const {
   destroy, 
   email, 
   uploadImage,
-  editFollowup } = require('../controllers/jobController')
+  editFollowup 
+} = require('../controllers/jobController')
 
+// Standard CRUD routes
 router.get('/', index);
 router.get('/:id', show);
 router.post('/', create);
 router.put('/:id', edit);
 router.delete('/:id', destroy);
-router.post('/email', email); // accepts POST requests from mailgun which contain new leads
+
+// Special routes
+router.post('/email', email); // Mailgun automation route
 router.post('/:id/image', upload.single('file'), uploadImage);
 router.put('/:jId/followups/:fId', editFollowup)
 
