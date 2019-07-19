@@ -1,6 +1,5 @@
 const Job = require("../models/Job");
 const mongoose = require("mongoose");
-mongoose.set("useFindAndModify", false);
 
 const { uploadFile } = require('../utils/cloudinary');
 const { parseEmail, parsePaintQuote } = require("../utils/parse");
