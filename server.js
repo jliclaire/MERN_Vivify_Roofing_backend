@@ -11,6 +11,7 @@ const port = process.env.PORT || 5000;
 
 //middleware
 // body-parser configuration
+app.use(express.urlencoded());
 app.use(express.json());
 app.use(cors());
 

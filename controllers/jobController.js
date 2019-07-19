@@ -63,9 +63,10 @@ const destroy = async (req, res) => {
 const email = async (req, res) => {
   try {
     const emailString = req.body["body-plain"];
-    console.log(req)
     const jobData = parseEmail(emailString);
     const newJob = await Job.create(jobData);
+    console.log('Received new sales lead:')
+    console.log(newJob)
     res.status(202).send(newJob);
   } catch (error) {
     console.log(error.stack);
