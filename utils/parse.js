@@ -30,6 +30,25 @@ const parseEmail = (string) => {
   }
 }
 
+const parsePaintQuote = (string) => {
+  const name = (string.match(/Name:\s*(.+)\s+Location/i))[1]
+  const suburb = (string.match(/Location:\s*(.+)\s+Phone/i))[1]
+  const phone = (string.match(/Phone:\s*(.+)\s+Email/i))[1]
+  const email = (string.match(/Email:\s*(.+)\s+</i))[1]
+  const comments = (string.match(/I\ Require:\s*(.+)/i))[1]
+  const paintingQuote = true
+
+  return {
+    name,
+    suburb,
+    phone,
+    email,
+    comments,
+    paintingQuote
+  }
+}
+
 module.exports = {
   parseEmail,
+  parsePaintQuote
 }
