@@ -55,31 +55,7 @@ const register = async (req, res) => {
   }
 };
 
-const allUsers = async (req, res) => {
-  // For DEBUG only
-  try {
-    const users = await User.find();
-    res.status(200).send(users);
-  } catch (error) {
-    console.log(error.stack);
-    res.send("error getting users")
-  }
-}
-
-const deleteUser = async (req, res) => {
-  try {
-    const { id } = req.params;
-    const deletedUser = await User.findByIdAndDelete(id);
-    res.status(202).send(`Deleted user ${deletedUser.id}`);
-  } catch (error) {
-    console.log(error.stack);
-    res.status(400).send("Error deleting user");
-  }
-};
-
 module.exports = {
   login,
   register,
-  allUsers,
-  deleteUser
 };
