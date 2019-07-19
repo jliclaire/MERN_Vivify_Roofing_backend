@@ -25,5 +25,5 @@ mongoose.connect(process.env.DB_URL, { useNewUrlParser: true }, err => {
 });
 
 app.listen(port, () => {
-  console.log(`Vivify API listening on port ${port}...`);
+  console.log(`<-- Vivify API listening on port ${port} -->`);
 });
