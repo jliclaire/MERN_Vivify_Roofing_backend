@@ -5,7 +5,7 @@ const {
   edit,
   destroy,
   email
-} = require('../controllers/jobController')
+} = require('../controllers/userController')
 require('dotenv').config()
 const chai = require('chai')
 
@@ -24,40 +24,25 @@ beforeEach(() => {
   }
 
   req = {
-    params: { id: 0 },
+    params: { id: null },
     body: {
-      projectType: 'Resto',
-      roofFrameType: 'Wood',
-      sizeOfHome: '150m',
-      houseLevels: '2',
-      roofType: 'Tin',
-      currentRoofMaterial: 'Tin',
-      desiredRoofMaterial: 'Zinc',
-      gutterDownpipeReplacement: 'No',
-      name: 'test',
-      suburb: 'test',
-      email: 'test',
-      phone: 'test',
-      comments: 'test',
+      email: "brett@vivify.com",
+      passwordDigest: "pass",
+      role: "admin",
+      name: "Brett Winter",
+      phone: "1234"
     }
   }
 
   reqEdit = {
-    params: { id: 0 },
+    params: { id: null },
     body: {
-      houseLevels: '3'
-    }
-  }
-
-  reqEmail = {
-    body: {
-      "Subject": "Website Quote Request",
-      "body-plain": "Project Type: Tile to Tin Conversion\r\nRoof Frame Type: Timber Approximate Size of Home: 176m2 – 200m2 House Levels: Single Storey Roof Type: Pitched Current Roof Material: Tile Desired Roof Material: Colorbond Gutter & Downpipe Replacement: No Name: Tristan snow Suburb: MOUNT ELIZA Email: tristansnow81@gmail.com <mailto:tristansnow81@gmail.com> Phone: +61433398196 Comments: com"
+      email: "brett2@vivify.com"
     }
   }
 })
 
-describe('jobs#index', () => {
+describe('users#index', () => {
   it('returns a 200 status', (done) => {
     index(req, res)
       .then(() => {
@@ -66,7 +51,7 @@ describe('jobs#index', () => {
       })
   })
 
-  it('returns an array of jobs from database', (done) => {
+  it('returns an array of users from database', (done) => {
     index(req, res)
       .then(() => {
         chai.expect(res.sendCalledWith).to.be.a('array');
@@ -76,7 +61,7 @@ describe('jobs#index', () => {
   })
 })
 
-describe('jobs#show', () => {
+describe('users#show', () => {
   beforeEach((done) => {
     let id
     create(req, res)
@@ -95,17 +80,17 @@ describe('jobs#show', () => {
     })
   })
 
-  it('returns the specified job from database', (done) => {
+  it('returns the specified user from database', (done) => {
     show(req, res)
       .then(() => {
         chai.expect(res.sendCalledWith).to.be.a('object');
-        chai.expect(res.sendCalledWith.projectType).to.equal("Resto");
+        chai.expect(res.sendCalledWith.name).to.equal("Brett Winter");
         done();
       })
   })
 })
 
-describe('jobs#create', () => {
+describe('users#create', () => {
   it('returns a 201 status', (done) => {
     create(req, res)
       .then(() => {
@@ -123,7 +108,7 @@ describe('jobs#create', () => {
   })
 })
 
-describe('jobs#edit', () => {
+describe('users#edit', () => {
   beforeEach((done) => {
     let id
     create(req, res)
@@ -145,13 +130,13 @@ describe('jobs#edit', () => {
   it('returns the updated document', (done) => {
     edit(reqEdit, res)
       .then(() => {
-        chai.expect(res.sendCalledWith.houseLevels).to.equal('3')
+        chai.expect(res.sendCalledWith.email).to.equal('brett2@vivify.com')
         done()
       })
   })
 })
 
-describe('jobs#destroy', () => {
+describe('users#destroy', () => {
   beforeEach((done) => {
     let id
     create(req, res)
@@ -173,19 +158,9 @@ describe('jobs#destroy', () => {
   it('should return the deleted item', (done) => {
     destroy(req, res)
       .then(() => {
-        chai.expect(res.sendCalledWith.projectType).to.equal("Resto")
+        chai.expect(res.sendCalledWith.name).to.equal("Brett Winter")
         done();
       })
       .catch((err) => console.log(err))
-  })
-})
-
-describe('jobs#email', () => {
-  it('should return a 200 status', (done) => {
-    email(reqEmail, res)
-      .then(() => {
-        chai.expect(res.statusCalledWith).to.equal(200)
-        done()
-      })
   })
 })

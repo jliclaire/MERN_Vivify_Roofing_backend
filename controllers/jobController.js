@@ -17,7 +17,7 @@ const index = async (req, res) => {
 const show = async (req, res) => {
   try {
     const { id } = req.params;
-    const job = await Job.find({_id: id});
+    const job = await Job.findById(id);
     res.status(200).send(job);
   } catch (error) {
     console.log(error.stack);
@@ -52,7 +52,7 @@ const destroy = async (req, res) => {
   try {
     const { id } = req.params;
     const deletedJob = await Job.findByIdAndDelete(id);
-    res.status(202).send({deleted: deletedJob});
+    res.status(202).send(deletedJob);
   } catch (error) {
     console.log(error.stack);
     res.status(500).send(error.message);
