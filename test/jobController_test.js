@@ -4,9 +4,7 @@ const {
   create,
   edit,
   destroy,
-  email,
-  uploadImage,
-  editFollowup
+  email
 } = require('../controllers/jobController')
 require('dotenv').config()
 const chai = require('chai')
