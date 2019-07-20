@@ -19,7 +19,9 @@ app.use(cors());
 app.use(routes);
 
 // db authentication
-mongoose.connect(process.env.DB_URL, { useNewUrlParser: true }, err => {
+mongoose.connect(
+  process.env.DB_URL, 
+  { useNewUrlParser: true, useFindAndModify: false }, err => {
   if (err) return console.log(`${err}`);
   console.log("<-- Connected to the Vivify leads database -->");
 });

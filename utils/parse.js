@@ -36,7 +36,7 @@ const parsePaintQuote = (string) => {
   const phone = (string.match(/Phone:\s*(.+)\s+Email/i))[1]
   const email = (string.match(/Email:\s*(.+)\s+</i))[1]
   const comments = (string.match(/I\ Require:\s*(.+)/i))[1]
-  const paintingQuote = true
+  const projectType = "Painting"
 
   return {
     name,
@@ -44,7 +44,7 @@ const parsePaintQuote = (string) => {
     phone,
     email,
     comments,
-    paintingQuote
+    projectType
   }
 }
 

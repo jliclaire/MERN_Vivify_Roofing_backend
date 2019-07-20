@@ -4,7 +4,6 @@ const followupSchema = require("./Followup");
 
 const jobSchema = new mongoose.Schema({
   createdTime: { type: Date, default: Date.now },
-  paintingQuote: { type: Boolean, default: false },
 
   // Project details
   projectType: String,
