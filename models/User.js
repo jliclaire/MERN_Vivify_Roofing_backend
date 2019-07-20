@@ -6,7 +6,6 @@ const userSchema = new mongoose.Schema({
   role: String, //the position of this person, a rep, management
   phone: String,
   email: String,
-  admin: Boolean
 });
 
 module.exports = mongoose.model("User", userSchema);
