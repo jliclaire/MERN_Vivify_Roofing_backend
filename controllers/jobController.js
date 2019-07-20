@@ -17,7 +17,7 @@ const index = async (req, res) => {
 const show = async (req, res) => {
   try {
     const { id } = req.params;
-    const job = await Job.findById(id);
+    const job = await Job.find({_id: id});
     res.status(200).send(job);
   } catch (error) {
     console.log(error.stack);
@@ -65,14 +65,12 @@ const email = async (req, res) => {
     const emailSubject = req.body["Subject"];
     let jobData
     if (emailSubject === "Roof Painting Quote") {
-      jobData = parseEmail(emailString);
-    } else {
       jobData = parsePaintQuote(emailString)
+    } else {
+      jobData = parseEmail(emailString)
     }
-    const newJob = await Job.create(jobData);
-    console.log('Received new sales lead:')
-    console.log(newJob)
-    res.sendStatus(200); // Mailgun notified of success and will not retry
+    await Job.create(jobData);
+    res.status(200); // Mailgun notified of success and will not retry
   } catch (error) {
     console.log(error.stack);
     res.status(500).send(error.message);
