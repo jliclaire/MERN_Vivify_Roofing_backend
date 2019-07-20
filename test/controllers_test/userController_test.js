@@ -5,7 +5,7 @@ const {
   edit,
   destroy,
   email
-} = require('../controllers/userController')
+} = require('../../controllers/userController')
 require('dotenv').config()
 const chai = require('chai')
 

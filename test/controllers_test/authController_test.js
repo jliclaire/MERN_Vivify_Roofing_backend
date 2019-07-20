@@ -1,10 +1,10 @@
 const {
   login,
   register
-} = require('../controllers/authController')
+} = require('../../controllers/authController')
 const chai = require('chai')
 const mongoose = require('mongoose')
-const User = require('../models/User')
+const User = require('../../models/User')
 
 let req, res
 beforeEach((done) => {
