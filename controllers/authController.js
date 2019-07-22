@@ -54,7 +54,12 @@ const register = async (req, res) => {
 };
 
 const identify = async (req, res) => {
-  
+  const { user } = req;
+  try {
+    res.status(200).send(user);
+  } catch (error) {
+    res.status(500);
+  }
 }
 
 module.exports = {
