@@ -30,8 +30,7 @@ const login = async (req, res) => {
 };
 
 const register = async (req, res) => {
-  const { email, password } = req.body;
-  // const { name, email, password, role, phone, admin } = req.body;
+  const { name, email, password, role, phone } = req.body;
   if (email && password) {
     try {
       const query = await User.findOne({ email: email });
@@ -41,8 +40,7 @@ const register = async (req, res) => {
           password,
           role,
           phone,
-          email,
-          admin
+          email
         );
         const token = await generateAccessToken(user);
         return res.status(201).send({ token })

@@ -4,6 +4,8 @@ const followupSchema = require("./Followup");
 
 const jobSchema = new mongoose.Schema({
   createdTime: { type: Date, default: Date.now },
+
+  // Project details
   projectType: String,
   roofFrameType: String,
   sizeOfHome: String,
@@ -12,18 +14,21 @@ const jobSchema = new mongoose.Schema({
   currentRoofMaterial: String,
   desiredRoofMaterial: String,
   gutterDownpipeReplacement: String,
+
+  // Client details
   name: String,
   suburb: String,
   email: String,
   phone: String,
   comments: String,
-  //below are the fields that we inserted, need to confirm after Andy's meeting with client
+
+  // Interaction details
   followUps: [followupSchema],
   imageUrls: [String],
-  assignedTrade: String, //this is for the person who taking care of this job
-  sold: Boolean, //when the customer agree to enter into a roofing work contract
-  inProgress: Boolean, //to flag this job to a work-in-progress folder
-  archived: Boolean ////to flag this job to a work-cancelled folder
+  assignedTrade: String,
+  sold: Boolean,
+  inProgress: Boolean,
+  archived: Boolean
 });
 
 module.exports = mongoose.model("Job", jobSchema);
