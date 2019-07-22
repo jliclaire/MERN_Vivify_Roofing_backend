@@ -6,7 +6,7 @@ const { parseEmail, parsePaintQuote } = require("../utils/parse");
 
 const index = async (req, res) => {
   try {
-    const jobs = await Job.find();
+    const jobs = await Job.find().sort({ _id: -1 });
     res.status(200).send(jobs);
   } catch (error) {
     console.log(error.stack);
@@ -23,7 +23,7 @@ const show = async (req, res) => {
     console.log(error.stack);
     res.status(500).send(error.message);
   }
-}
+};
 
 const create = async (req, res) => {
   try {
@@ -82,15 +82,19 @@ const uploadImage = async (req, res) => {
     const { buffer } = req.file;
     const { id } = req.params;
     const { url } = await uploadFile(buffer);
-    const updatedJob = await Job.findByIdAndUpdate(id, {
-      $push: { imageUrls: url }
-    }, { new: true });
+    const updatedJob = await Job.findByIdAndUpdate(
+      id,
+      {
+        $push: { imageUrls: url }
+      },
+      { new: true }
+    );
     res.status(202).send(updatedJob);
   } catch (error) {
     console.log(error);
     res.status(500).send(error.message);
   }
-}
+};
 
 const editFollowup = async (req, res) => {
   try {
@@ -105,8 +109,7 @@ const editFollowup = async (req, res) => {
     console.log(error.stack);
     res.status(500).send(error.message);
   }
-}
-
+};
 
 module.exports = {
   index,
