@@ -1,4 +1,5 @@
 const parseEmail = (string) => {
+  console.log(string)
   const projectType = (string.match(/Project Type:\s*(.+)?\s+Roof Frame/i))[1];
   const roofFrameType = (string.match(/Roof Frame Type:\s*(.+)?\s+Approximate Size/i))[1];
   const sizeOfHome = (string.match(/Size of Home:\s*(.+)?\s+House Levels/i))[1];
