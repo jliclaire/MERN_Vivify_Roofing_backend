@@ -53,7 +53,12 @@ const register = async (req, res) => {
   }
 };
 
+const identify = async (req, res) => {
+  
+}
+
 module.exports = {
   login,
   register,
+  identify
 };
