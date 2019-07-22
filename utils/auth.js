@@ -31,8 +31,8 @@ const generateUser = async (
   return await newUser.save();
 }
 
-const generateAccessToken = async ({ name }) => {
-  return jwt.sign({ name }, process.env.JWT_SECRET)
+const generateAccessToken = async ({ email, name, role }) => {
+  return jwt.sign({ email, name, role }, process.env.JWT_SECRET)
 }
 
 module.exports = {
