@@ -1,4 +1,5 @@
 const parseEmail = (string) => {
+  console.log(string)
   const projectType = (string.match(/Project Type:\s*(.+)?\s+Roof Frame/i))[1];
   const roofFrameType = (string.match(/Roof Frame Type:\s*(.+)?\s+Approximate Size/i))[1];
   const sizeOfHome = (string.match(/Size of Home:\s*(.+)?\s+House Levels/i))[1];
@@ -9,7 +10,7 @@ const parseEmail = (string) => {
   const gutterDownpipeReplacement = (string.match(/Downpipe Replacement:\s*(.+)?\s+Name/i))[1]
   const name = (string.match(/Name:\s*(.+)?\s+Suburb/i))[1]
   const suburb = (string.match(/Suburb:\s*(.+)?\s+Email/i))[1]
-  const email = (string.match(/Email:\s*(.+)?\s+<mailto/i))[1]
+  const email = (string.match(/Email:\s*(.+)?\s+</i))[1]
   const phone = (string.match(/Phone:\s*(.+)?\s+Comments/i))[1]
   const comments = (string.match(/Comments:\s*(.+)?/i))[1]
 
