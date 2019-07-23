@@ -1,5 +1,4 @@
 const Job = require("../models/Job");
-const mongoose = require("mongoose");
 
 const { uploadFile } = require('../utils/cloudinary');
 const { parseEmail, parsePaintQuote } = require("../utils/parse");
@@ -70,7 +69,7 @@ const email = async (req, res) => {
       jobData = parseEmail(emailString)
     }
     await Job.create(jobData);
-    res.status(200); // Mailgun notified of success and will not retry
+    res.send('thanks'); // Mailgun notified of success and will not retry
   } catch (error) {
     console.log(error.stack);
     res.status(500).send(error.message);
