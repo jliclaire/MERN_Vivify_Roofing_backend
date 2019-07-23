@@ -60,7 +60,7 @@ const destroy = async (req, res) => {
 
 const email = async (req, res) => {
   try {
-    const emailString = req.body["body-plain"];
+    const emailString = req.body["stripped-text"];
     const emailSubject = req.body["Subject"];
     let jobData
     if (emailSubject === "Roof Painting Quote") {
