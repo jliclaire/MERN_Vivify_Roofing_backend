@@ -1,5 +1,4 @@
 const Job = require("../models/Job");
-const mongoose = require("mongoose");
 
 const { uploadFile } = require('../utils/cloudinary');
 const { parseEmail, parsePaintQuote } = require("../utils/parse");
@@ -61,7 +60,7 @@ const destroy = async (req, res) => {
 
 const email = async (req, res) => {
   try {
-    const emailString = req.body["body-plain"];
+    const emailString = req.body["stripped-text"];
     const emailSubject = req.body["Subject"];
     let jobData
     if (emailSubject === "Roof Painting Quote") {
@@ -69,8 +68,14 @@ const email = async (req, res) => {
     } else {
       jobData = parseEmail(emailString)
     }
-    await Job.create(jobData);
-    res.status(200); // Mailgun notified of success and will not retry
+    const foundJob = await Job.findOne({ email: jobData.email })
+    if (foundJob) {
+      res.send('Already have it.')
+      console.log('A duplicate was sent.')
+    } else {
+      await Job.create(jobData);
+      res.send('thanks'); // Mailgun notified of success and will not retry
+    }
   } catch (error) {
     console.log(error.stack);
     res.status(500).send(error.message);
