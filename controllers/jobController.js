@@ -68,8 +68,14 @@ const email = async (req, res) => {
     } else {
       jobData = parseEmail(emailString)
     }
-    await Job.create(jobData);
-    res.send('thanks'); // Mailgun notified of success and will not retry
+    const foundJob = await Job.findOne({ email: jobData.email })
+    if (foundJob) {
+      res.send('Already have it.')
+      console.log('A duplicate was sent.')
+    } else {
+      await Job.create(jobData);
+      res.send('thanks'); // Mailgun notified of success and will not retry
+    }
   } catch (error) {
     console.log(error.stack);
     res.status(500).send(error.message);
