@@ -7,6 +7,7 @@ const {
 
 const login = async (req, res) => {
   const { email, password } = req.body;
+  email = email.toLowerCase();
   if (email && password) {
     try {
       const query = await User.findOne({ email: email });
@@ -31,6 +32,7 @@ const login = async (req, res) => {
 
 const register = async (req, res) => {
   const { name, email, password, role, phone } = req.body;
+  email = email.toLowerCase();
   if (email && password) {
     try {
       const query = await User.findOne({ email: email });
