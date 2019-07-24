@@ -26,7 +26,8 @@ const editUser = async (req, res) => {
         phone,
         email
       );
-      const token = await generateAccessToken(user);
+      const {id, name, role, email} = user;
+      const token = await generateAccessToken({id, name, role, email});
       return res.status(201).send({ token })
     }
   } catch (error) {
