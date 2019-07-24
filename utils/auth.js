@@ -13,10 +13,10 @@ const checkPassword = async (password, hash) => {
 
 const generateUser = async (
   name,
+  email,
   password,
-  role,
   phone,
-  email
+  role
 ) => {
   const hash = await generateHash(password);
   const newUser = new User({
@@ -53,7 +53,6 @@ const modifyUser = async (
 }
 
 const generateAccessToken = async (user) => {
-  console.log(user)
   try {
     return jwt.sign(user, process.env.JWT_SECRET)
   } catch (error) {

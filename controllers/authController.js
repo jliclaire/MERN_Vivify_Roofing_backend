@@ -11,7 +11,7 @@ const login = async (req, res) => {
   if (email && password) {
     try {
       const query = await User.findOne({ email: email });
-      if (query !== null) {
+      if (query) {
         const result = await checkPassword(password, query.passwordDigest);
         if (!result) {
           return res.status(403).send("bad credentials");
@@ -37,19 +37,15 @@ const register = async (req, res) => {
   if (email && password) {
     try {
       const query = await User.findOne({ email: email });
-      if (query === null) {
-        const user = await generateUser(
-          name,
-          password,
-          role,
-          phone,
-          email
-        );
-        const token = await generateAccessToken(user);
+      if (!query) {
+        const user = await generateUser(name, email, password, role, phone);
+        const { _id } = user;
+        const token = await generateAccessToken({ _id, name, email, role });
         return res.status(201).send({ token })
       }
     } catch (error) {
-      return res.status(404).send("an error occurred");
+      console.log(error.stack)
+      return res.status(404).send(error.message);
     }
   } else {
     return res.status(403).send("bad credentials");
