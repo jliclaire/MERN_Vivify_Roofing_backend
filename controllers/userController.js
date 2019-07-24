@@ -1,4 +1,40 @@
 const User = require("../models/User");
+const { modifyUser } = require('../utils/auth')
+
+const getSales = async (req, res) => {
+  try {
+    const salesUsers = await User.find({role: "Sales"})
+    res.status(200).send(salesUsers)
+  } catch (error) {
+    console.log(error.stack);
+    res.status(500).send("error getting users")
+  }
+}
+
+const editUser = async (req, res) => {
+  let { name, email, password, role, phone } = req.body;
+  const { id } = req.params
+  email = email.toLowerCase();
+  try {
+    const query = await User.findById(id);
+    console.log(query)
+    if (query) {
+      const user = await modifyUser(
+        id,
+        name,
+        password,
+        role,
+        phone,
+        email
+      );
+      console.log(user)
+      const token = await generateAccessToken(user);
+      return res.status(201).send({ token })
+    }
+  } catch (error) {
+    return res.status(404).send("an error occurred");
+  }
+}
 
 const names = async (req, res) => {
   try {
@@ -23,6 +59,8 @@ const destroy = async (req, res) => {
 };
 
 module.exports = {
+  getSales,
   names,
-  destroy
+  destroy,
+  editUser
 }
