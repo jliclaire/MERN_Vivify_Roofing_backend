@@ -45,7 +45,8 @@ const register = async (req, res) => {
           phone,
           email
         );
-        const token = await generateAccessToken(user);
+        const { _id, name, email, role } = user;
+        const token = await generateAccessToken({ _id, name, email, role });
         return res.status(201).send({ token })
       }
     } catch (error) {
