@@ -1,5 +1,5 @@
 const User = require("../models/User");
-const { modifyUser } = require('../utils/auth')
+const { modifyUser, generateAccessToken } = require('../utils/auth')
 
 const getSales = async (req, res) => {
   try {
@@ -17,7 +17,6 @@ const editUser = async (req, res) => {
   email = email.toLowerCase();
   try {
     const query = await User.findById(id);
-    console.log(query)
     if (query) {
       const user = await modifyUser(
         id,
@@ -27,7 +26,6 @@ const editUser = async (req, res) => {
         phone,
         email
       );
-      console.log(user)
       const token = await generateAccessToken(user);
       return res.status(201).send({ token })
     }
