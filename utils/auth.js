@@ -53,7 +53,12 @@ const modifyUser = async (
 }
 
 const generateAccessToken = async (user) => {
-  return jwt.sign(user, process.env.JWT_SECRET)
+  console.log(user)
+  try {
+    return jwt.sign(user, process.env.JWT_SECRET)
+  } catch (error) {
+    console.log(error.stack)
+  }
 }
 
 module.exports = {

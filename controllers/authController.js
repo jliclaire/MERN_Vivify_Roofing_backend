@@ -16,7 +16,8 @@ const login = async (req, res) => {
         if (!result) {
           return res.status(403).send("bad credentials");
         } else {
-          const token = await generateAccessToken(query);
+          const { _id, name, email, role } = query;
+          const token = await generateAccessToken({ _id, name, email, role });
           return res.status(200).send({ token });
         }
       } else {
