@@ -1,15 +1,17 @@
 const express = require('express');
 const router = express.Router();
-const { checkJWT } = require('../middleware/jwtMiddleware.js')
+const { checkAdmin, checkJWT } = require('../middleware/jwtMiddleware.js')
 
 const {
   names,
   destroy,
-  getSales
+  getSales,
+  editUser
 } = require('../controllers/userController')
 
-router.get('/', checkJWT, names)
-router.get('/sales', checkJWT, getSales)
-router.delete('/:id', checkJWT, destroy)
+router.get('/', names)
+router.get('/sales', checkAdmin, getSales)
+router.put('/:id', checkJWT, editUser)
+router.delete('/:id', checkAdmin, destroy)
 
 module.exports = router;

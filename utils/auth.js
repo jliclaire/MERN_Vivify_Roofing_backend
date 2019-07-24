@@ -16,8 +16,7 @@ const generateUser = async (
   password,
   role,
   phone,
-  email,
-  admin
+  email
 ) => {
   const hash = await generateHash(password);
   const newUser = new User({
@@ -25,10 +24,32 @@ const generateUser = async (
     passwordDigest: hash,
     role,
     phone,
-    email,
-    admin
+    email
   })
   return await newUser.save();
+}
+
+const modifyUser = async (
+  id,
+  name,
+  password,
+  role,
+  phone,
+  email
+) => {
+  const hash = await generateHash(password);
+  const modifiedUser = await findByIdAndUpdate(
+    id,
+    {
+      name,
+      passwordDigest: hash,
+      role,
+      phone,
+      email
+    },
+    { new: true }
+  )
+  return await modifiedUser;
 }
 
 const generateAccessToken = async ({ email, name, role }) => {
@@ -39,5 +60,6 @@ module.exports = {
   generateHash,
   checkPassword,
   generateUser,
-  generateAccessToken
+  generateAccessToken,
+  modifyUser
 }
