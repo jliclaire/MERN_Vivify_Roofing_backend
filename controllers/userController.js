@@ -12,26 +12,30 @@ const getSales = async (req, res) => {
 }
 
 const editUser = async (req, res) => {
-  let { name, email, password, role, phone } = req.body;
-  const { id } = req.params
-  email = email.toLowerCase();
+  let { password } = req.body;
+  const { id } = req.params;
   try {
-    const query = await User.findById(id);
-    if (query) {
-      const user = await modifyUser(
-        id,
-        name,
-        password,
-        role,
-        phone,
-        email
-      );
-      const {id, name, role, email} = user;
-      const token = await generateAccessToken({id, name, role, email});
+    const foundUser = await User.findById(id);
+    if (foundUser) {
+      const user = await modifyUser(id, password);
+      const newId = user._id;
+      const newEmail = user.email;
+      const newRole = user.role;
+      const newName = user.name;
+      const token = await generateAccessToken({
+        _id: newId, 
+        name: newName, 
+        role: newRole, 
+        email: newEmail
+      });
       return res.status(201).send({ token })
+    } else {
+      console.log(error.stack)
+      return res.status(404).send(error.message)
     }
   } catch (error) {
-    return res.status(404).send("an error occurred");
+    console.log(error.stack)
+    return res.status(404).send(error.message);
   }
 }
 

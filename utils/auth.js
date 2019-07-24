@@ -29,23 +29,12 @@ const generateUser = async (
   return await newUser.save();
 }
 
-const modifyUser = async (
-  id,
-  name,
-  password,
-  role,
-  phone,
-  email
-) => {
+const modifyUser = async (id, password) => {
   const hash = await generateHash(password);
   const modifiedUser = await User.findByIdAndUpdate(
     id,
     {
-      name,
-      passwordDigest: hash,
-      role,
-      phone,
-      email
+      passwordDigest: hash
     },
     { new: true }
   )
