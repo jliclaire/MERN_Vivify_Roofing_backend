@@ -24,6 +24,7 @@ const login = async (req, res) => {
         return res.status(403).send("bad credentials");
       }
     } catch (error) {
+      console.log(error.stack)
       return res.status(404).send("an error occured");
     }
   } else {
@@ -58,6 +59,7 @@ const identify = async (req, res) => {
   try {
     res.status(200).send(user);
   } catch (error) {
+    console.log(error.stack)
     res.status(500);
   }
 }
