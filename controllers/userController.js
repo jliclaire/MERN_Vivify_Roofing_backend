@@ -1,5 +1,15 @@
 const User = require("../models/User");
 
+const getSales = async (req, res) => {
+  try {
+    const salesUsers = await User.find({role: "Sales"})
+    res.status(200).send(salesUsers)
+  } catch (error) {
+    console.log(error.stack);
+    res.status(500).send("error getting users")
+  }
+}
+
 const names = async (req, res) => {
   try {
     const users = await User.find();
