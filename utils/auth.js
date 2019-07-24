@@ -38,8 +38,7 @@ const modifyUser = async (
   email
 ) => {
   const hash = await generateHash(password);
-  console.log(hash)
-  const modifiedUser = await findByIdAndUpdate(
+  const modifiedUser = await User.findByIdAndUpdate(
     id,
     {
       name,
@@ -53,8 +52,8 @@ const modifyUser = async (
   return await modifiedUser;
 }
 
-const generateAccessToken = async ({ email, name, role }) => {
-  return jwt.sign({ email, name, role }, process.env.JWT_SECRET)
+const generateAccessToken = async ({ id, email, name, role }) => {
+  return jwt.sign({ id, email, name, role }, process.env.JWT_SECRET)
 }
 
 module.exports = {
