@@ -13,26 +13,26 @@ const getSales = async (req, res) => {
 
 const editUser = async (req, res) => {
   let { name, email, password, role, phone } = req.body;
+  const { id } = req.params
   email = email.toLowerCase();
-  if (email && password) {
-    try {
-      const query = await User.findOne({ email: email });
-      if (query) {
-        const user = await modifyUser(
-          name,
-          password,
-          role,
-          phone,
-          email
-        );
-        const token = await generateAccessToken(user);
-        return res.status(201).send({ token })
-      }
-    } catch (error) {
-      return res.status(404).send("an error occurred");
+  try {
+    const query = await User.findById(id);
+    console.log(query)
+    if (query) {
+      const user = await modifyUser(
+        id,
+        name,
+        password,
+        role,
+        phone,
+        email
+      );
+      console.log(user)
+      const token = await generateAccessToken(user);
+      return res.status(201).send({ token })
     }
-  } else {
-    return res.status(403).send("bad credentials");
+  } catch (error) {
+    return res.status(404).send("an error occurred");
   }
 }
 

@@ -38,6 +38,7 @@ const modifyUser = async (
   email
 ) => {
   const hash = await generateHash(password);
+  console.log(hash)
   const modifiedUser = await findByIdAndUpdate(
     id,
     {
