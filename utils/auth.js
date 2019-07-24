@@ -52,8 +52,8 @@ const modifyUser = async (
   return await modifiedUser;
 }
 
-const generateAccessToken = async ({ id, email, name, role }) => {
-  return jwt.sign({ id, email, name, role }, process.env.JWT_SECRET)
+const generateAccessToken = async (user) => {
+  return jwt.sign(user, process.env.JWT_SECRET)
 }
 
 module.exports = {
