@@ -6,7 +6,7 @@ const {
 } = require("../utils/auth");
 
 const login = async (req, res) => {
-  const { email, password } = req.body;
+  let { email, password } = req.body;
   email = email.toLowerCase();
   if (email && password) {
     try {
@@ -31,7 +31,7 @@ const login = async (req, res) => {
 };
 
 const register = async (req, res) => {
-  const { name, email, password, role, phone } = req.body;
+  let { name, email, password, role, phone } = req.body;
   email = email.toLowerCase();
   if (email && password) {
     try {
