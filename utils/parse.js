@@ -9,7 +9,7 @@ const parseEmail = (string) => {
   const gutterDownpipeReplacement = (string.match(/Downpipe Replacement:\s*(.+)?\s+Name/i))[1]
   const name = (string.match(/Name:\s*(.+)?\s+Suburb/i))[1]
   const suburb = (string.match(/Suburb:\s*(.+)?\s+Email/i))[1]
-  const email = (string.match(/Email:\s*(.+)?(<)?\s*Phone/i))[1]
+  const email = (string.match(/Email:\s*(.+)?(\s*<)?\s*Phone/i))[1]
   const phone = (string.match(/Phone:\s*(.+)?\s+Comments/i))[1]
   const comments = (string.match(/Comments:\s*(.+)?/i))[1]
 
