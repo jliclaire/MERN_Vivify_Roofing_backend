@@ -55,7 +55,6 @@ const register = async (req, res) => {
 
 const identify = async (req, res) => {
   const { user } = req;
-  console.log(user)
   try {
     res.status(200).send(user);
   } catch (error) {
